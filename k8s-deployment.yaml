@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: payment-service
+spec:
+ selector:
+  matchLabels:
+   app: payment-service
+ replicas: 1
+ template:
+  metadata:
+   labels:
+    app: payment-service
+  spec:
+   containers:
+    - name: payment-service
+      image: payment-service.jar
+      imagePullPolicy: IfNotPresent
+      ports:
+       - containerPort: 8092  
+      env:
+       - name: DB_HOST
+         value: mysql
+       - name: DB_NAME
+         value: myschema
+       - name: DB_USERNAME
+         value: root
+       - name: DB_PASSWORD
+         value: root
